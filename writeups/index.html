@@ -6,30 +6,28 @@
   <title>Writeups — Manedg</title>
   <style>
     :root{
-      --green:#79d167;
+      --vert:#79d167;   /* même vert que ton site */
       --bg:#f6f7f8;
       --card:#ffffff;
+      --texte:#222;
       --muted:#666;
-      --text:#222;
-      --max:980px;
+      --maxw:1100px;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
-    /* bande verte */
-    header.hero{background:var(--green);padding:18px 0}
-    header .nav{max-width:var(--max);margin:0 auto;padding:0 18px;display:flex;gap:18px;align-items:center}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--texte)}
+    /* bandeau identique */
+    header.hero{background:var(--vert);padding:18px 0}
+    header .nav{max-width:var(--maxw);margin:0 auto;padding:0 18px;display:flex;gap:18px;align-items:center}
     header .nav a{color:#fff;text-decoration:none;font-weight:700}
     /* contenu */
-    main.wrap{max-width:var(--max);margin:28px auto;padding:0 18px}
-    .card{background:var(--card);border-radius:8px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,0.06)}
-    h1{margin:0 0 12px;font-size:28px}
-    p.lead{color:var(--muted);margin:0 0 14px;line-height:1.5}
-    .content{color:var(--text);line-height:1.6;white-space:pre-wrap;font-size:15px}
-    .small{color:var(--muted);font-size:13px;margin-top:10px}
-    @media(max-width:600px){
-      h1{font-size:22px}
-      .card{padding:16px}
-    }
+    main.wrap{max-width:var(--maxw);margin:28px auto;padding:0 18px}
+    .card{background:var(--card);border-radius:8px;padding:0;box-shadow:0 10px 30px rgba(0,0,0,0.06);overflow:hidden}
+    .card .head{background:var(--vert);padding:20px 26px;color:#000;font-weight:800;font-size:18px}
+    .card .body{padding:26px}
+    .body .content{white-space:pre-wrap;line-height:1.6;color:var(--texte);font-size:15px}
+    .small{color:var(--muted);font-size:13px;margin-top:12px}
+    a.back{display:inline-block;margin-top:18px;color:#1f6fb5;text-decoration:none;font-weight:700}
+    @media(max-width:600px){ .card .head{font-size:16px} .card .body{padding:18px} }
   </style>
 </head>
 <body>
@@ -45,13 +43,45 @@
 
   <main class="wrap">
     <div class="card">
-      <h1>Writeup — Offensive Security Intro</h1>
-      <p class="lead">Page récapitulative — étapes, observations et recommandations pour la room "Offensive Security Intro" (TryHackMe).</p>
+      <div class="head">VOICI LES WRITEUPS RÉALISÉS SUR TRY HACK ME :</div>
 
-      <div class="content">
-Nom de la room : Offensive Security Intro
+      <div class="body">
+        <!-- Le texte ci-dessous est aligné à gauche dans la zone blanche, scrollable naturellement -->
+        <div class="content">
+Nom de la room : 
+Offensive Security Intro
 Lien de la room : https://tryhackme.com/room/offensivesecurityintro
 Difficulté : easy
+Durée estimée : ex : 1h00
+
+Chose(s) faite(s) dans la room :
+- <<Ex : reconnaissance, exploitation SQLi, récupération d’identifiants, accès SSH, élévation de privilèges>>
+- <<Autre action notable : ex : analyse de configuration, bruteforce, exploitation d’un upload>>
+
+Étapes dans cette room :
+  1. Recon : scan initial (nmap) → découverte des services et versions.
+  2. Enumeration web : recherche de répertoires (gobuster/ffuf), inspection des pages et paramètres.
+  3. Test de vulnérabilité : hypothèse + test (ex : injection SQL / LFI / upload / RCE).
+  4. Exploitation : exploitation reproduite avec commandes/outils (ex : sqlmap, curl, exploit manuel).
+  5. Accès initial : méthode pour obtenir un shell ou une session (ssh / reverse shell).
+  6. Post-exploitation : premiers checks (sudo -l, fichiers sensibles, SUID, services).
+  7. Élévation de privilèges : méthode utilisée pour monter en privilèges et accès aux zones protégées.
+  8. Nettoyage / notes : éléments à noter pour la remediation ou limite rencontrée.
+
+Observations & résultats rapides :
+- <<Points importants observés : ex : version vulnérable d’un service, page qui fuit des infos, credentials en clair>>
+- <<Difficultés rencontrées / contournements trouvés>>
+
+Remarque(s) / correction(s) recommandée(s) :
+- <<Ex : corriger l’injection SQL via requêtes préparées / restreindre l’accès aux fichiers sensibles / retirer SUID inutile>>
+- <<Ex : mettre à jour/patcher le service X, ajouter une validation stricte des uploads, désactiver l’affichage d’erreurs côté prod>>
+
+Conclusion (1 phrase) :
+<<Ce que tu retiens / pourquoi la room est intéressante pour apprendre tel point technique>>
+-
+Nom de la room : Offensive Security Intro
+Lien de la room : https://tryhackme.com/room/offensivesecurityintro
+Date :  Difficulté : easy
 Durée estimée : ~30 min – 1h
 
 Chose(s) faite(s) dans la room :
@@ -66,23 +96,29 @@ Chose(s) faite(s) dans la room :
   2. Recon : scan rapide des ports/services avec `nmap` pour connaitre la surface d’attaque.
   3. Enumeration web : lancer `gobuster`/`ffuf` pour trouver pages/répertoires cachés (ex : /admin, /transfer, etc.).
   4. Inspection manuelle des pages trouvées : tester formulaires, paramètres et comportements (ex : effectuer une opération “Send Money” pour déclencher un indice).
-  5. Si des credentials ou vecteurs d’accès apparaissent, tenter l’accès (SSH ou autre) et examiner le système. (La room montre surtout la logique d’attaque web pour débutants.)
-  6. Post-exploitation basique : checks initiaux (`sudo -l`, fichiers sensibles, versions) et noter les corrections à recommander.
+  5. Si des credentials ou vecteurs d’accès apparaissent, tenter l’accès (SSH ou autre) et examiner le système. (la room montre surtout la logique d’attaque web pour débutants).
+  6. Post-exploitation basique : checks initiaux (`sudo -l`, fichiers sensibles, versions`) et noter les corrections à recommander.
   7. Terminer la machine et noter les leçons apprises.
-  8. Nettoyage / notes : éléments à garder en tête pour la remediation.
 
 Observations & résultats rapides :
-- La room se concentre sur la démarche (recon → énumération web → test d’hypothèse) plutôt que sur un exploit complexe ; l’important est d’apprendre la logique et les outils de base.
+- La room se concentre sur la **démarche** (recon → énumération web → test d’hypothèse) plutôt que sur un exploit complexe ; l’important est d’apprendre la logique et les outils de base.
 - Outils utiles observés : `nmap`, `gobuster` (ou `ffuf`), `curl`/navigateur et parfois `sqlmap` si une injection est suspectée.
 - Difficulté : conçue pour les débutants — rapide et pédagogique (bon pour se familiariser avec le flow d’un pentest).
 
 Remarque(s) / correction(s) recommandée(s) :
-- Sur une vraie appli : valider/filtrer strictement les entrées côté serveur (requêtes préparées, validation stricte).
+- Sur une vraie appli : valider/filtrer strictement les entrées côté serveur (préparer les requêtes, ne pas faire confiance au front-end).
 - Masquer les informations sensibles dans les messages de retour et restreindre l’accès aux pages d’administration.
-- Logger sans divulguer d’informations exploitables et limiter les fonctionnalités dangereuses exposées.
-- Mettre à jour et patcher les services vulnérables ; restreindre SUID et privilèges inutiles.
+- Sur les environnements de production, logger sans divulguer d’informations exploitables et limiter les fonctionnalités dangereuses exposées.
 
-Outils utilisés : gobuster, Kali (prototype) — et outils standards : nmap, curl, sqlmap (si besoin).
+Outils utilisés : gobuster , prototype de kali linux 
 
 Conclusion :
-Excellente room d’introduction pour comprendre la méthodologie offensive — elle permet de pratiquer la reconnaissance web, la recherche de répertoires et la validation d’hypothèses, base du pentest. 🚀
+Excellente room d’introduction pour comprendre la méthodologie offensive — elle te fait pratiquer la reconnaissance web, les recherches de répertoires et la validation d’hypothèses, ce qui est la base du pentest. 🚀
+        </div>
+
+        <div class="small">Si tu veux plusieurs writeups sur la même page, je peux ajouter une liste de liens vers des ancres (ex: #intro, #room2) ou créer une page par writeup. Dis-moi ta préférence.</div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
