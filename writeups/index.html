@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Writeups — Manedg</title>
+  <style>
+    :root{--green:#79d167;--bg:#f6f7f8;--card:#fff;--muted:#666;--max:980px}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#222}
+    header.hero{background:var(--green);padding:18px 0}
+    header .nav{max-width:var(--max);margin:0 auto;padding:0 18px;display:flex;gap:18px}
+    header .nav a{color:#fff;text-decoration:none;font-weight:700}
+    main.wrap{max-width:var(--max);margin:28px auto;padding:0 18px}
+    .card{background:var(--card);border-radius:8px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,0.06)}
+    h1{margin:0 0 8px;font-size:28px}
+    p.lead{color:var(--muted);margin:0 0 18px}
+    ul.list{list-style:none;padding:0;margin:0}
+    li.item{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:6px;margin-bottom:12px;border:1px solid rgba(0,0,0,0.04)}
+    a.item-link{color:#1f6fb5;text-decoration:none;font-weight:600}
+    .meta{font-size:13px;color:var(--muted)}
+    @media(max-width:600px){h1{font-size:22px}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav">
+      <a href="/">projet</a>
+      <a href="/ecrits/">écrits</a>
+      <a href="/rooms/">rooms</a>
+      <a href="/contact/">contact</a>
+      <a href="/writeups/">writeups</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="card">
+      <h1>Writeups 📝</h1>
+      <p class="lead">Ici je poste mes writeups (CTF, TryHackMe, HackTheBox…). Clique sur un article pour l’ouvrir.</p>
+
+      <ul class="list">
+        <!-- Remplace ces lignes par tes fichiers réels (nom exact de fichier dans writeups/) -->
+        <li class="item">
+          <a class="item-link" href="2025-09-10-offensive-security-intro.html">Offensive Security Intro — TryHackMe</a>
+          <span class="meta">easy · 30–60min</span>
+        </li>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>
